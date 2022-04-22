@@ -1,8 +1,8 @@
 all: build exec
 
 build:
-	gcc -c main.c -o gcproj
+	gcc src/main.c -o out
 
 exec:
-	chmod +x gcproj
-	./gcproj
+	./out
+     
