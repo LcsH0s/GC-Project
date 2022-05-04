@@ -45,6 +45,66 @@ void map_print(int **map)
     }
 }
 
+char *get_city_name_by_code(int code)
+{
+    switch (code)
+    {
+    case 1:
+        return "Lille";
+        break;
+    case 2:
+        return "Paris";
+        break;
+    case 3:
+        return "Brest";
+        break;
+    case 4:
+        return "Rennes";
+        break;
+    case 5:
+        return "Strasbourg";
+        break;
+    case 6:
+        return "Orlean";
+        break;
+    case 7:
+        return "Nantes";
+        break;
+    case 8:
+        return "Dijon";
+        break;
+    case 9:
+        return "Clermont-Ferrand";
+        break;
+    case 10:
+        return "Lyon";
+        break;
+    case 11:
+        return "Geneve";
+        break;
+    case 12:
+        return "Bordeaux";
+        break;
+    case 13:
+        return "Genoble";
+        break;
+    case 14:
+        return "Nice";
+        break;
+    case 15:
+        return "Toulouse";
+        break;
+    case 16:
+        return "Montpellier";
+        break;
+    case 17:
+        return "Perpignan";
+        break;
+    default:
+        break;
+    }
+}
+
 struct city *get_cities(int **map)
 {
     struct city *cities = malloc(sizeof(struct city) * 17);
@@ -57,6 +117,7 @@ struct city *get_cities(int **map)
             if (map[i][j] > 0)
             {
                 cities[c].code = map[i][j];
+                cities[c].name = get_city_name_by_code(cities[c].code);
                 cities[c].cords.x = i;
                 cities[c].cords.y = j;
                 c++;
@@ -101,18 +162,6 @@ int **links_read(const char *filename)
         fscanf(flinks, "%d", &origin);
         fscanf(flinks, " %d", &destination);
     }
-    /*
-        for (int i = 0; i < 17; i++)
-        {
-            printf("City %d linked with : ", i + 1);
-            for (int j = 0; j < 10; j++)
-            {
-                if (links[i][j] != 0)
-                    printf(" %d", links[i][j]);
-            }
-            printf("\n");
-        }
-    */
     return links;
 }
 
@@ -145,7 +194,7 @@ struct link **compute_link_matrix(const char *filename, int **map, struct city *
             if (is_linked(links, i + 1, j + 1))
                 link_matrix[i][j].distance = compute_distance(cities, i + 1, j + 1);
             else
-                link_matrix[i][j].distance = -1;
+                link_matrix[i][j].distance = 0;
         }
     }
     return link_matrix;
@@ -163,7 +212,7 @@ void link_matrix_print(struct link **link_matrix)
 
         for (int j = 0; j < 17; j++)
         {
-            if (link_matrix[i][j].distance != -1)
+            if (link_matrix[i][j].distance != 0)
             {
                 if (link_matrix[i][j].distance > 10)
                     printf("%.0f ", link_matrix[i][j].distance);
@@ -171,8 +220,22 @@ void link_matrix_print(struct link **link_matrix)
                     printf("%.0f  ", link_matrix[i][j].distance);
             }
             else
-                printf("-1 ");
+                printf("   ");
         }
         printf("\n");
     }
+}
+
+int **link_matrix_to_int(struct link **link_matrix)
+{
+    int **matrix = malloc(sizeof(int *) * 17);
+    for (int i = 0; i < 17; i++)
+    {
+        matrix[i] = malloc(sizeof(int) * 17);
+        for (int j = 0; j < 17; j++)
+        {
+            matrix[i][j] = round(link_matrix[i][j].distance);
+        }
+    }
+    return matrix;
 }

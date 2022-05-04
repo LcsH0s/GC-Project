@@ -11,6 +11,7 @@ struct city
 {
     int code;
     struct coordinates cords;
+    char *name;
 };
 
 struct link
@@ -24,5 +25,6 @@ struct city *get_cities(int **map);
 int **links_read(const char *filename);
 struct link **compute_link_matrix(const char *filename, int **map, struct city *cities);
 void link_matrix_print(struct link **link_matrix);
+int **link_matrix_to_int(struct link **link_matrix);
 
 #endif
