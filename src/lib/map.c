@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 #include "map.h"
 
@@ -51,57 +52,40 @@ char *get_city_name_by_code(int code)
     {
     case 1:
         return "Lille";
-        break;
     case 2:
         return "Paris";
-        break;
     case 3:
         return "Brest";
-        break;
     case 4:
         return "Rennes";
-        break;
     case 5:
         return "Strasbourg";
-        break;
     case 6:
         return "Orlean";
-        break;
     case 7:
         return "Nantes";
-        break;
     case 8:
         return "Dijon";
-        break;
     case 9:
         return "Clermont-Ferrand";
-        break;
     case 10:
         return "Lyon";
-        break;
     case 11:
         return "Geneve";
-        break;
     case 12:
         return "Bordeaux";
-        break;
     case 13:
         return "Genoble";
-        break;
     case 14:
         return "Nice";
-        break;
     case 15:
         return "Toulouse";
-        break;
     case 16:
         return "Montpellier";
-        break;
     case 17:
         return "Perpignan";
-        break;
     default:
-        break;
+        return "lol";
     }
 }
 
@@ -114,10 +98,11 @@ struct city *get_cities(int **map)
     {
         for (int j = 0; j < 26; j++)
         {
-            if (map[i][j] > 0)
+            if (map[i][j] != 0)
             {
                 cities[c].code = map[i][j];
-                cities[c].name = get_city_name_by_code(cities[c].code);
+                cities[c].name = malloc(sizeof(char) * 30);
+                strcpy(cities[c].name, get_city_name_by_code(cities[c].code));
                 cities[c].cords.x = i;
                 cities[c].cords.y = j;
                 c++;

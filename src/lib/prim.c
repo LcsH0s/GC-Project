@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 #include "map.h"
@@ -9,7 +10,7 @@ int *prim_algo(int **G)
 {
     int no_edge;
     int selected[V];
-    int final_solution[V];
+    int *final_solution = malloc(sizeof(int) * V);
     memset(selected, false, sizeof(selected));
     no_edge = 0;
     selected[0] = true;
@@ -43,7 +44,7 @@ int *prim_algo(int **G)
                 }
             }
         }
-        printf("%d - %d : %d\n", x, y, G[x][y]);
+        printf("%d - %d : %d\n", x + 1, y + 1, G[x][y]);
         final_solution[count] = x + 1;
         selected[y] = true;
         no_edge++;
@@ -55,9 +56,12 @@ int *prim_algo(int **G)
 
 void save_solution(int *solution, struct city *cities)
 {
-    for (int i = 0; i < 17; i++)
+    FILE *f = fopen("solution.txt", "w");
+    for (int i = 0; i < 16; i++)
     {
-        FILE *f = fopen("solution.txt", "w");
-        fprintf("%s -> ", cities[solution[i]].name);
+        if (cities[solution[i + 1]].name != NULL)
+            fprintf(f, "%s -> ", cities[solution[i]].name);
+        else
+            fprintf(f, "%s", cities[solution[i]].name);
     }
 }

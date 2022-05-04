@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I. -Wall -Wno-unknown-pragmas -finput-charset=UTF-8 -fexec-charset=UTF-8 -pedantic -Wno-unused-command-line-argument
+CFLAGS=-I. -Wall -Wno-unused-command-line-argument
 LIBS= -lm
 
 all: build clean exec
