@@ -61,7 +61,7 @@ void compression_effectiveness(char *filename)
         count_c = count_c + 1;
     }
 
-    printf("Compressed by %.1f%% \n", ((count_nc - count_c) / count_nc) * 100);
+    printf("\nCompression rate : %.1f%% \n", ((count_nc - count_c) / count_nc) * 100);
 
     fclose(fmap);
     fclose(comp_map);
@@ -130,4 +130,22 @@ void decompress_map()
         }
         fprintf(decomp_map, "\n");
     }
+    fclose(decomp_map);
+    fclose(comp_map);
+}
+
+void print_compressed_map()
+{
+    FILE *comp_map = fopen("res/compressed_map.txt", "r");
+    char str[99999];
+    fscanf(comp_map, "%[^\0]", str);
+    printf("%s", str);
+}
+
+void print_decompressed_map()
+{
+    FILE *decomp_map = fopen("res/decompressed_map.txt", "r");
+    char str[99999];
+    fscanf(decomp_map, "%[^\0]", str);
+    printf("%s", str);
 }

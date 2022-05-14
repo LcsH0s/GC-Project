@@ -18,7 +18,6 @@ int *prim_algo(int **G)
     int total = 0;
     int x;
     int y;
-    printf("Edge : Weight\n");
 
     while (no_edge < V - 1)
     {
@@ -62,7 +61,7 @@ void save_solution(int *solution, struct city *cities)
     for (int i = 0; i < 16; i++)
     {
         if (cities[solution[i + 1]].name != NULL)
-            fprintf(f, "%s -> ", cities[solution[i]].name);
+            fprintf(f, "%s ----> ", cities[solution[i]].name);
         else
             fprintf(f, "%s", cities[solution[i]].name);
     }

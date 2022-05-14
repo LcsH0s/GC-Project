@@ -1,1 +1,1 @@
-Paris -> Orlean -> Paris -> Strasbourg -> Dijon -> Lyon -> Genoble -> Montpellier -> Perpignan -> Lyon -> Geneve -> Toulouse -> Orlean -> Brest -> Dijon -> Perpignan
+Paris ----> Orlean ----> Paris ----> Strasbourg ----> Dijon ----> Lyon ----> Genoble ----> Montpellier ----> Perpignan ----> Lyon ----> Geneve ----> Toulouse ----> Lyon ----> Nantes ----> Dijon ----> Perpignan

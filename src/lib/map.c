@@ -152,7 +152,7 @@ int **links_read(const char *filename)
 
 double compute_distance(struct city *cities, int city_code_a, int city_code_b)
 {
-    return sqrt(pow(cities[city_code_a].cords.x - cities[city_code_b].cords.x, 2) + pow(cities[city_code_a].cords.y - cities[city_code_b].cords.y, 2));
+    return (sqrt(pow(cities[city_code_a].cords.x - cities[city_code_b].cords.x, 2) + pow(cities[city_code_a].cords.y - cities[city_code_b].cords.y, 2))) * 10;
 }
 
 int is_linked(int **links, int city_code_a, int city_code_b)
