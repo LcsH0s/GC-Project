@@ -65,4 +65,5 @@ void save_solution(int *solution, struct city *cities)
         else
             fprintf(f, "%s", cities[solution[i]].name);
     }
+    fclose(f);
 }
