@@ -15,7 +15,7 @@ int *prim_algo(int **G)
     no_edge = 0;
     selected[0] = true;
     int count = 0;
-
+    int total = 0;
     int x;
     int y;
     printf("Edge : Weight\n");
@@ -45,18 +45,20 @@ int *prim_algo(int **G)
             }
         }
         printf("%d - %d : %d\n", x + 1, y + 1, G[x][y]);
+        total += G[x][y];
         final_solution[count] = x + 1;
         selected[y] = true;
         no_edge++;
         count++;
     }
+    printf("Total: %d\n", total);
     final_solution[count] = y + 1;
     return final_solution;
 }
 
 void save_solution(int *solution, struct city *cities)
 {
-    FILE *f = fopen("solution.txt", "w");
+    FILE *f = fopen("res/solution.txt", "w");
     for (int i = 0; i < 16; i++)
     {
         if (cities[solution[i + 1]].name != NULL)

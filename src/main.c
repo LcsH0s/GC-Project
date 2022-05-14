@@ -3,6 +3,7 @@
 
 #include "lib/map.h"
 #include "lib/prim.h"
+#include "lib/compression.h"
 
 int main()
 {
@@ -18,6 +19,9 @@ int main()
     int *solution = prim_algo(int_link_matrix);
     save_solution(solution, cities);
     // Pour la compression : algo RLE
+    compress_map("res/carte.txt");
+    compression_effectiveness("res/carte.txt");
+    decompress_map();
 
     return 0;
 }

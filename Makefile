@@ -4,8 +4,8 @@ LIBS= -lm
 
 all: build clean exec
 
-build: main map prim
-	$(CC) -o gcproj.exe main.o map.o prim.o $(CFLAGS) $(LIBS)
+build: main map prim compression
+	$(CC) -o gcproj.exe main.o map.o prim.o compression.o $(CFLAGS) $(LIBS)
 
 main:
 	$(CC) -o main.o -c src/main.c $(CFLAGS) $(LIBS)
@@ -16,6 +16,8 @@ map:
 prim:
 	$(CC) -o prim.o -c src/lib/prim.c $(CFLAGS) $(LIBS)
 
+compression:
+	$(CC) -o compression.o -c src/lib/compression.c $(CFLAGS) $(LIBS)
 
 clean:
 	rm -f *.o
