@@ -32,7 +32,7 @@ int main()
     compression_effectiveness("res/carte.txt");
 
     rle_compress("res/solution.txt", "res/solution_compressed.txt");
-    rle_extract("res/solution_compressed.txt", "res/solution_decompressed.txt");
+    rle_decompress("res/solution_compressed.txt", "res/solution_decompressed.txt");
 
     return 0;
 }

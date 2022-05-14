@@ -197,7 +197,7 @@ void rle_compress(const char *src, const char *dst)
     fclose(out);
 }
 
-void rle_extract(const char *src, const char *dst)
+void rle_decompress(const char *src, const char *dst)
 {
     FILE *in, *out;
     int i, j, max;
