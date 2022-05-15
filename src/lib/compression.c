@@ -138,17 +138,23 @@ void decompress_map()
 void print_compressed_map()
 {
     FILE *comp_map = fopen("res/compressed_map.txt", "r");
-    char str[99999];
-    fscanf(comp_map, "%[^\0]", str);
-    printf("%s", str);
+    char c = getc(comp_map);
+    while (c != EOF)
+    {
+        printf("%c", c);
+        c = getc(comp_map);
+    }
 }
 
 void print_decompressed_map()
 {
     FILE *decomp_map = fopen("res/decompressed_map.txt", "r");
-    char str[99999];
-    fscanf(decomp_map, "%[^\0]", str);
-    printf("%s", str);
+    char c = getc(decomp_map);
+    while (c != EOF)
+    {
+        printf("%c", c);
+        c = getc(decomp_map);
+    }
 }
 
 void rle_compress_solution(const char *src, const char *dst)
