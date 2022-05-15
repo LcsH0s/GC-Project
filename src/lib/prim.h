@@ -6,5 +6,6 @@
 
 int *prim_algo(int **G);
 void save_solution(int *solution, struct city *cities);
+void prim_test(int **cost);
 
 #endif

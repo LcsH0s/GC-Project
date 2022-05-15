@@ -13,6 +13,7 @@ int main()
     struct link **link_matrix = compute_link_matrix("res/links", map, cities);
     int **int_link_matrix = link_matrix_to_int(link_matrix);
     int *solution = prim_algo(int_link_matrix);
+    prim_test(int_link_matrix);
     save_solution(solution, cities);
 
     printf("\nPartie 2 : Compression\n\n");
