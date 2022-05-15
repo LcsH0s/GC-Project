@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-I. -Wall -Wno-unused-command-line-argument
 LIBS= -lm
 
-all: build clean exec
+all: build clean
 
 build: main map prim compression
 	$(CC) -o gcproj.exe main.o map.o prim.o compression.o $(CFLAGS) $(LIBS)
@@ -21,8 +21,5 @@ compression:
 
 clean:
 	rm -f *.o
-
-exec:
-	./gcproj.exe
 
 .PHONY: clean

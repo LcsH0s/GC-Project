@@ -61,7 +61,7 @@ void compression_effectiveness(char *filename)
         count_c = count_c + 1;
     }
 
-    printf("\nCompression rate : %.1f%% \n", ((count_nc - count_c) / count_nc) * 100);
+    printf("\nMap file compression rate : %.1f%% \n", ((count_nc - count_c) / count_nc) * 100);
 
     fclose(fmap);
     fclose(comp_map);
@@ -150,75 +150,77 @@ void print_decompressed_map()
     printf("%s", str);
 }
 
-void rle_compress(const char *src, const char *dst)
+void rle_compress_solution(const char *src, const char *dst)
 {
-    FILE *in, *out;
+    FILE *solution_file, *compressed_solution_file;
     uint8_t t[129];
-    int i, keep;
 
     // file verification
-    if (!(in = fopen(src, "rb")))
+    if (!(solution_file = fopen(src, "rb")))
         exit(-1);
-    if (!(out = fopen(dst, "wb")))
+    if (!(compressed_solution_file = fopen(dst, "wb")))
     {
-        fclose(in);
+        fclose(solution_file);
         exit(-1);
     }
-    t[0] = fgetc(in);
-    while (!feof(in))
+
+    int i, q;
+    t[0] = fgetc(solution_file);
+
+    while (!feof(solution_file))
     {
-        t[1] = fgetc(in);
+        t[1] = fgetc(solution_file);
         if (t[0] != t[1])
         {
             i = 1;
-            if (!feof(in))
+            if (!feof(solution_file))
                 do
-                    t[++i] = fgetc(in);
-                while (!feof(in) && i < 128 && t[i] != t[i - 1]);
-            if ((keep = t[i] == t[i - 1]))
+                    t[++i] = fgetc(solution_file);
+                while (!feof(solution_file) && i < 128 && t[i] != t[i - 1]);
+            if ((q = t[i] == t[i - 1]))
                 --i;
-            if (fputc(i - 1, out) == EOF ||
-                fwrite(t, sizeof(uint8_t), i, out) < (unsigned)i)
+            if (fputc(i - 1, compressed_solution_file) == EOF ||
+                fwrite(t, sizeof(uint8_t), i, compressed_solution_file) < (unsigned)i)
                 break;
             t[0] = t[i];
-            if (!keep)
+            if (!q)
                 continue;
         }
         i = 2;
         do
-            t[1] = fgetc(in);
+            t[1] = fgetc(solution_file);
         while (++i < 130 && t[0] == t[1]);
-        if (fputc(i + 125, out) == EOF ||
-            fputc(t[0], out) == EOF)
+        if (fputc(i + 125, compressed_solution_file) == EOF ||
+            fputc(t[0], compressed_solution_file) == EOF)
             break;
         t[0] = t[1];
     }
-    fclose(in);
-    fclose(out);
+    fclose(solution_file);
+    fclose(compressed_solution_file);
 }
 
-void rle_decompress(const char *src, const char *dst)
+void rle_decompress_solution(const char *src, const char *dst)
 {
-    FILE *in, *out;
-    int i, j, max;
+    FILE *compressed_solution_file, *decompressed_solution_file;
 
-    if (!(in = fopen(src, "rb")))
+    if (!(compressed_solution_file = fopen(src, "rb")))
         exit(-1);
-    if (!(out = fopen(dst, "wb")))
+    if (!(decompressed_solution_file = fopen(dst, "wb")))
     {
-        fclose(in);
+        fclose(compressed_solution_file);
         exit(-1);
     }
-    j = 0;
-    while ((i = fgetc(in)) != EOF && (j = fgetc(in)) != EOF)
+
+    int i, j = 0, max;
+    while ((i = fgetc(compressed_solution_file)) != EOF && (j = fgetc(compressed_solution_file)) != EOF)
     {
         max = i + (i < 128 ? 1 : -126);
         while (max--)
-            if (fputc(j, out) == EOF ||
-                (i < 128 && max && (j = fgetc(in)) == EOF))
+            if (fputc(j, decompressed_solution_file) == EOF ||
+                (i < 128 && max && (j = fgetc(compressed_solution_file)) == EOF))
                 break;
     }
 
-    fclose(in);
-    fclose(out);
+    fclose(compressed_solution_file);
+    fclose(decompressed_solution_file);
 }
